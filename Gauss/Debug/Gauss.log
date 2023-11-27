@@ -1,0 +1,6 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(514,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Gauss.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Gauss.cpp
+D:\Studia\Semestr 3\Analiza Numeryczna\GAUSS_Ostap_Florchuk_VISUAL_STUDIO\Gauss\Gauss.cpp(96,32): warning C4018: '<': signed/unsigned mismatch
+D:\Studia\Semestr 3\Analiza Numeryczna\GAUSS_Ostap_Florchuk_VISUAL_STUDIO\Gauss\Gauss.cpp(99,32): warning C4018: '<': signed/unsigned mismatch
+D:\Studia\Semestr 3\Analiza Numeryczna\GAUSS_Ostap_Florchuk_VISUAL_STUDIO\Gauss\Gauss.cpp(101,36): warning C4018: '<': signed/unsigned mismatch
+  Gauss.vcxproj -> D:\Studia\Semestr 3\Analiza Numeryczna\GAUSS_Ostap_Florchuk_VISUAL_STUDIO\Debug\GAUSS_Ostap_Florchuk_VISUAL_STUDIO.exe
