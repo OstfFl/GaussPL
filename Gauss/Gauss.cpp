@@ -9,7 +9,7 @@ using namespace std;
 
 void readInput(double**& A, double*& b, int& matrix_size, string file);
 
-void display(double**& A, double*& b, int& matrix_size);
+void display(double**& A, double*& b, int matrix_size);
 
 void task1(string file);
 
@@ -19,15 +19,13 @@ void task2(string file);
 
 void task3(string file);
 
-void generalGaussElimination(double**& A, double*& b, int& matrix_size);
+void generalGaussElimination(double**& A, double*& b, int matrix_size);
 
-double* gaussXYZ(double**& A, double*& b, int& matrix_size);
+void fragmentGaussElimination(double**& A, double*& b, int matrix_size, int k);
 
-void fragmentGaussElimination(double**& A, double*& b, int& matrix_size, int k);
+void bubbleSort(vector<int>& column_indices, double*& res, int matrix_size);
 
-void bubbleSort(vector<int>& columnIndices, double*& res, int& matrix_size);
-
-void displayResults(int& matrix_size, double*& res)
+void displayResults(int matrix_size, double*& res)
 {
     if (res == nullptr)
     {
@@ -59,15 +57,17 @@ int main()
     else
     {
         cout << "\n\nTASK 1: " << endl;
-        task1("zad1.csv"); // You can also input file paths directly here.
+        task1("zad1.csv");
 
-        // Uncomment the following lines to execute other tasks.
-         cout << "\n\nTASK 2: " << endl;
-         task2("zad14.csv");
-         cout << "\n\nTASK 3: " << endl;
-         task3("zad14.csv");
-    	 cout << "\n\nTASK 4: " << endl;
-         task4("zad13.csv");
+        cout << "\n\nTASK 2: " << endl;
+        task2("zad14.csv");
+
+        cout << "\n\nTASK 3: " << endl;
+        task3("zad14.csv");
+
+        cout << "\n\nTASK 4: " << endl;
+        task4("zad13.csv");
+
         return 0;
     }
 }
@@ -110,7 +110,7 @@ void readInput(double**& A, double*& b, int& matrix_size, string file)
     }
 }
 
-void display(double**& A, double*& b, int& matrix_size)
+void display(double**& A, double*& b, int matrix_size)
 {
     cout << "-----------------------------------------------------------------------------------------" << endl;
     cout << " Size = " << matrix_size << endl;
@@ -126,7 +126,7 @@ void display(double**& A, double*& b, int& matrix_size)
     cout << "-----------------------------------------------------------------------------------------" << endl;
 }
 
-void generalGaussElimination(double**& A, double*& b, int& matrix_size)
+void generalGaussElimination(double**& A, double*& b, int matrix_size)
 {
     for (int k = 0; k < matrix_size - 1; k++)
     {
@@ -134,7 +134,7 @@ void generalGaussElimination(double**& A, double*& b, int& matrix_size)
     }
 }
 
-void fragmentGaussElimination(double**& A, double*& b, int& matrix_size, int k)
+void fragmentGaussElimination(double**& A, double*& b, int matrix_size, int k)
 {
     for (int i = k + 1; i < matrix_size; i++)
     {
@@ -147,7 +147,7 @@ void fragmentGaussElimination(double**& A, double*& b, int& matrix_size, int k)
     }
 }
 
-void bubbleSort(vector<int>& columnIndices, double*& res, int& matrix_size)
+void bubbleSort(vector<int>& column_indices, double*& res, int matrix_size)
 {
     int i = matrix_size - 1;
     while (i > 0)
@@ -156,9 +156,9 @@ void bubbleSort(vector<int>& columnIndices, double*& res, int& matrix_size)
         int p = 1;
         while (j < i)
         {
-            if (columnIndices[j] > columnIndices[j + 1])
+            if (column_indices[j] > column_indices[j + 1])
             {
-                swap(columnIndices[j], columnIndices[j + 1]);
+                swap(column_indices[j], column_indices[j + 1]);
                 swap(res[j], res[j + 1]);
                 p = 0;
             }
@@ -172,7 +172,7 @@ void bubbleSort(vector<int>& columnIndices, double*& res, int& matrix_size)
     }
 }
 
-double* gaussXYZ(double**& A, double*& b, int& matrix_size)
+double* gaussXYZ(double**& A, double*& b, int matrix_size)
 {
     auto* res = new double[matrix_size];
     int n = matrix_size;
@@ -200,7 +200,6 @@ void task1(string file)
 {
     double** A;
     double* b;
-
     int matrix_size;
     cout << "-----------------------------------------------------------------------------------------" << endl;
     cout << "READING AND DISPLAYING THE ARRAY" << endl;
@@ -229,11 +228,11 @@ void task4(string file)
     display(A, b, matrix_size);
     cout << "-----------------------------------------------------------------------------------------" << endl;
     int l = 0;
-    vector<int> columnIndices;
-    columnIndices.reserve(matrix_size);
+    vector<int> column_indices;
+    column_indices.reserve(matrix_size);
     for (int i = 0; i < matrix_size; i++)
     {
-        columnIndices.push_back(i);
+        column_indices.push_back(i);
     }
     for (int k = 0; k < matrix_size - 1; k++)
     {
@@ -260,7 +259,7 @@ void task4(string file)
         {
             swap(A[l][i], A[needi][i]);
         }
-        swap(columnIndices[l], columnIndices[needj]);
+        swap(column_indices[l], column_indices[needj]);
         cout << "Step" << endl;
         display(A, b, matrix_size);
 
@@ -273,7 +272,7 @@ void task4(string file)
     cout << "Final array: " << endl;
     display(A, b, matrix_size);
     double* res = gaussXYZ(A, b, matrix_size);
-    bubbleSort(columnIndices, res, matrix_size);
+    bubbleSort(column_indices, res, matrix_size);
     cout << "Results: " << endl;
     displayResults(matrix_size, res);
 }
@@ -282,7 +281,6 @@ void task3(string file)
 {
     double** A;
     double* b;
-
     int matrix_size;
     cout << "-----------------------------------------------------------------------------------------" << endl;
     cout << "READING AND DISPLAYING THE ARRAY" << endl;
@@ -338,11 +336,11 @@ void task2(string file)
     display(A, b, matrix_size);
     cout << "-----------------------------------------------------------------------------------------" << endl;
     int l = 0;
-    vector<int> columnIndices;
-    columnIndices.reserve(matrix_size);
+    vector<int> column_indices;
+    column_indices.reserve(matrix_size);
     for (int i = 0; i < matrix_size; i++)
     {
-        columnIndices.push_back(i);
+        column_indices.push_back(i);
     }
     int needi = l, needj = l;
     for (int k = 0; k < matrix_size - 1; k++)
@@ -364,7 +362,7 @@ void task2(string file)
         {
             swap(A[i][i], A[i][needj]);
         }
-        swap(columnIndices[l], columnIndices[needj]);
+        swap(column_indices[l], column_indices[needj]);
 
         l++;
     }
@@ -373,7 +371,7 @@ void task2(string file)
     cout << "Final array: " << endl;
     display(A, b, matrix_size);
     double* res = gaussXYZ(A, b, matrix_size);
-    bubbleSort(columnIndices, res, matrix_size);
+    bubbleSort(column_indices, res, matrix_size);
     cout << "Results: " << endl;
     displayResults(matrix_size, res);
 }
